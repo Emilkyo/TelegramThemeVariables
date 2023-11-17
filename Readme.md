@@ -44,11 +44,11 @@ parser.zip/
 ## Dependencies
 
 - Java 8 or higher
-- Internet connectivity to download the file from GitHub
+- Internet connectivity to download file from GitHub
 
 ## Connect
 
-If you encounter any issues or have questions about the project, please contact me on [telegram]().
+If you encounter any issues or have questions about the project, please contact me on [Telegram]().
 
 ## License
 
