@@ -77,14 +77,11 @@ public class FindVariables {
     }
 
     public static void main(String[] args) {
-        String fileURL = "https://raw.githubusercontent.com/DrKLO/Telegram/master/TMessagesProj" +
-                "/src/main/java/org/telegram/ui/ActionBar/ThemeColors.java";
-        String saveDir = "./parse/";
 
         final String fileName = saveDir + "ThemeColors.java";
         final String methodName = "createColorKeysMap";
 
-        downloadFile(fileURL, saveDir);
+        downloadFile(Constants.ANDROID.get("fileURL"), Constants.ANDROIDX.get("SaveDir"));
 
         List<String> variablesList = readInFile(fileName, methodName);
         List<String> result = parseData(variablesList);
