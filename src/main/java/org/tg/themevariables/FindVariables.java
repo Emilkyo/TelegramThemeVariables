@@ -1,25 +1,33 @@
 package org.tg.themevariables;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FindVariables {
-    private static void downloadFile(String fileURL, String saveDir) {
-        try (InputStream in = new URL(fileURL).openStream()) {
+    private static void downloadFile(String fileURL, String saveDir, String fileName) {
+        try (InputStream in = new URI(fileURL).toURL().openStream()) {
             System.out.println("Getting file from the repository");
-            FileOutputStream fos = new FileOutputStream(saveDir + "/ThemeColors.java");
-            int length;
-            byte[] buffer = new byte[1024];
-            while ((length = in.read(buffer)) != -1) {
-                fos.write(buffer, 0, length);
+
+            try (FileOutputStream fos = new FileOutputStream(saveDir + '/' + fileName)) {
+                int length;
+                byte[] buffer = new byte[1024];
+                while ((length = in.read(buffer)) != -1) {
+                    fos.write(buffer, 0, length);
+                }
             }
             System.out.println("File received successfully \n");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (URISyntaxException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -76,16 +84,42 @@ public class FindVariables {
         System.out.println(); // Empty line for better readability
     }
 
+    private static String updated() {
+        /*
+            Check the channel message and determine which application
+            then return the application name
+        */
+        return "android";
+    }
+
     public static void main(String[] args) {
+        String app = updated();
+        switch (app) {
+            case "android":
+                factory(Constants.ANDROID);
+                break;
+            case "androidx":
+                factory(Constants.ANDROIDX);
+                break;
+            case "desktop":
+                factory(Constants.DESKTOP);
+                break;
+            case "unigram":
+                factory(Constants.UNIGRAM);
+                break;
+            case "ios":
+                factory(Constants.IOS);
+                break;
+            case "macos":
+                factory(Constants.MACOS);
+                break;
+        }
+    }
 
-        final String fileName = saveDir + "ThemeColors.java";
-        final String methodName = "createColorKeysMap";
-
-        downloadFile(Constants.ANDROID.get("fileURL"), Constants.ANDROIDX.get("SaveDir"));
-
-        List<String> variablesList = readInFile(fileName, methodName);
+    public static void factory(Map<String, String> app) {
+        downloadFile(app.get("fileURL"), app.get("saveDir"), app.get("fileName"));
+        List<String> variablesList = readInFile(app.get("saveDir") + app.get("fileName"), app.get("methodName"));
         List<String> result = parseData(variablesList);
-
-        writeToFile(fileName, result);
+        writeToFile(app.get("saveDir") + "out.txt", result);
     }
 }
