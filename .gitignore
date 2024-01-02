@@ -203,8 +203,8 @@ gradle-app.setting
 *.hprof
 
 ### Custom ignored files ###
-comparer/
-/LocalConstants.java
+/comparer/
+**/LocalConstants.java
 /parsed/android/out3.txt
 /parsed/android/out2.txt
 /parsed/android/monet.txt
