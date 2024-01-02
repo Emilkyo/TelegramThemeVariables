@@ -1,7 +1,8 @@
 # Variable Parser Tool For Telegram Themes For Android
 
-This very tiny project gets up-to-date variables for custom Telegram themes for Android from Telegram App
-[source code](https://github.com/DrKLO/Telegram).
+This project gets up-to-date variables for Telegram custom themes
+
+Android app  [source code](https://github.com/DrKLO/Telegram).
 
 ## Description
 
@@ -30,25 +31,28 @@ The `FindVariables` application performs the following functions:
 
 Actual variables will be in the file out.txt
 
+[//]: # (variables)
 ```
-parser.zip/ 
-├─ 📁VarriablesGetter/ 
-│  ├─ 📁parse/ 
-│  │  ├─ ThemeColors.java
-│  │  ├─ out.txt
+archive.zip/ 
+├─ 📁TelegramThemeVariables/
+│  ├─ 📁parsed/ 
+│  │  ├─ 📁android/ 
+│  │  │  ├─ ThemeColors.java
+│  │  │  ├─ out.txt
 │  ├─ 📁src/
 │  │  ├─ .../
 
 ```
 
+
 ## Dependencies
 
-- Java 8 or higher
+- Java 17 or higher
 - Internet connectivity to download file from GitHub
 
 ## Connect
 
-If you encounter any issues or have questions about the project, please contact me on [Telegram]().
+If you encounter any issues or have questions about the project, please [contact me]().
 
 ## License
 
