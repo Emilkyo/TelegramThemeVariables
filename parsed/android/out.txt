@@ -722,7 +722,6 @@ stories_circle_dialog1
 stories_circle_dialog2
 stories_circle_closeFriends1
 stories_circle_closeFriends2
-code_background
 chat_inCodeBackground
 chat_outCodeBackground
 code_keyword
