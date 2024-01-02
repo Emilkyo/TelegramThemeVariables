@@ -1,4 +1,7 @@
-package org.tg.themevariables;
+package org.tg.themevariables.parser;
+
+import org.tg.themevariables.Constants;
+import org.tg.themevariables.util.FileDownloader;
 
 import java.io.*;
 import java.net.URI;
@@ -11,25 +14,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FindVariables {
-    private static void downloadFile(String fileURL, String saveDir, String fileName) {
-        try (InputStream in = new URI(fileURL).toURL().openStream()) {
-            System.out.println("Getting file from the repository");
-
-            try (FileOutputStream fos = new FileOutputStream(saveDir + '/' + fileName)) {
-                int length;
-                byte[] buffer = new byte[1024];
-                while ((length = in.read(buffer)) != -1) {
-                    fos.write(buffer, 0, length);
-                }
-            }
-            System.out.println("File received successfully \n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
 
     private static List<String> readInFile(String fileName, String methodName) {
         List<String> methodData = new ArrayList<>();
@@ -98,6 +82,9 @@ public class FindVariables {
             case "android":
                 factory(Constants.ANDROID);
                 break;
+            case "nekogram":
+                factory(Constants.NEKOGRAM);
+                break;
             case "androidx":
                 factory(Constants.ANDROIDX);
                 break;
@@ -117,7 +104,7 @@ public class FindVariables {
     }
 
     public static void factory(Map<String, String> app) {
-        downloadFile(app.get("fileURL"), app.get("saveDir"), app.get("fileName"));
+        FileDownloader.downloadFile(app.get("fileURL"), app.get("saveDir"), app.get("fileName"));
         List<String> variablesList = readInFile(app.get("saveDir") + app.get("fileName"), app.get("methodName"));
         List<String> result = parseData(variablesList);
         writeToFile(app.get("saveDir") + "out.txt", result);
