@@ -10,8 +10,14 @@ public class Constants {
             "saveDir", "./parsed/android/"
     );
 
-
     public static final Map<String, String> ANDROIDX = Map.of(
+            "methodName", "",
+            "fileName", "",
+            "fileURL", "",
+            "saveDir", ""
+    );
+
+    public static final Map<String, String> NEKOGRAM = Map.of(
             "methodName", "",
             "fileName", "",
             "fileURL", "",
