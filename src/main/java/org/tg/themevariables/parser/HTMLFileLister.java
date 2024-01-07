@@ -5,8 +5,11 @@ import org.tg.themevariables.LocalConstants;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class HTMLFileLister {
+    private static final Logger logger = Logger.getLogger(HTMLFileLister.class.getName());
+
     public static List<String> getHTMLFiles(String projectPath) {
         List<String> htmlFiles = new ArrayList<>();
         File directory = new File(projectPath);
@@ -31,6 +34,10 @@ public class HTMLFileLister {
                     }
                 }
             }
+        }
+        // Log only once after processing the files
+        if (!htmlFiles.isEmpty()) {
+            logger.info("List of HTML files received");
         }
         return htmlFiles;
     }

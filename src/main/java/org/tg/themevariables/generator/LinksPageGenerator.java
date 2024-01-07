@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +24,7 @@ import java.util.regex.Pattern;
 public class LinksPageGenerator {
     private static List<String> linksList;
     private static final Logger logger = Logger.getLogger(LinksPageGenerator.class.getName());
+
 //    private static final Logger logger = LoggerFactory.getLogger
     public static void main(String[] args) {
         List<String> htmlFilesList = HTMLFileLister.getHTMLFiles(PROJECT_PATH);
@@ -34,7 +33,7 @@ public class LinksPageGenerator {
         try {
             replaceLinks();
 //            insertHTMLFileList(TEMPLATE_FILE_PATH, OUTPUT_FILE_PATH, linksList);
-            logger.info("The list of HTML files was successfully inserted into the file:" + OUTPUT_FILE_PATH);
+            logger.info("The list of HTML files was successfully inserted into the file: \n" + OUTPUT_FILE_PATH);
         } catch (Exception e) {
             logger.severe("Error: " + e.getMessage());
         }
@@ -43,7 +42,7 @@ public class LinksPageGenerator {
     private static void replaceLinks() {
         try {
             // Чтение содержимого HTML-файла
-            String templateContent = readFromFile(TEMPLATE_FILE_PATH);
+            String templateContent = readFromFile(LINKS_TEMPLATE_FILE_PATH);
 
             // Определение места вставки (замены)
 
