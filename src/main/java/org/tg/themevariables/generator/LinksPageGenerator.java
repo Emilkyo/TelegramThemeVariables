@@ -1,5 +1,8 @@
 package org.tg.themevariables.generator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.tg.themevariables.LocalConstants;
 import org.tg.themevariables.parser.HTMLFileLister;
 
 import static org.tg.themevariables.LocalConstants.*;
@@ -8,10 +11,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-//import org.slf4j.Logger;
 
 /**
  * <p> 1. get directories with HTML pages
@@ -22,20 +23,25 @@ import java.util.regex.Pattern;
  * <p> 6. insert the HTML code into the links page
  */
 public class LinksPageGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(LocalConstants.class);
     private static List<String> linksList;
-    private static final Logger logger = Logger.getLogger(LinksPageGenerator.class.getName());
 
-//    private static final Logger logger = LoggerFactory.getLogger
     public static void main(String[] args) {
+        logger.info("");
+        logger.info("main process started.");
         List<String> htmlFilesList = HTMLFileLister.getHTMLFiles(PROJECT_PATH);
+        // Log only once after processing the files
+        if (!htmlFilesList.isEmpty()) {
+            logger.info("List of HTML files received");
+        }
         linksList = preprocessData(htmlFilesList);
 
         try {
             replaceLinks();
 //            insertHTMLFileList(TEMPLATE_FILE_PATH, OUTPUT_FILE_PATH, linksList);
-            logger.info("The list of HTML files was successfully inserted into the file: \n" + OUTPUT_FILE_PATH);
+            logger.info("The list of HTML files was successfully inserted into the file: " + OUTPUT_FILE_PATH);
         } catch (Exception e) {
-            logger.severe("Error: " + e.getMessage());
+            logger.error("Error: " + e.getMessage());
         }
     }
 
@@ -67,15 +73,15 @@ public class LinksPageGenerator {
                 try (FileWriter writer = new FileWriter(OUTPUT_FILE_PATH)) {
                     writer.write(updatedHtmlContent);
                 } catch (Exception e) {
-                    logger.severe("Error: " + e.getMessage());
+                    logger.error("Error: " + e.getMessage());
                 }
                 logger.info("The data was successfully replaced in the HTML template after the " + insertionPoint +
-                        "tag");
+                        " tag");
             } else {
                 logger.info("Tag " + insertionPoint + " not found in HTML template.");
             }
         } catch (IOException e) {
-            logger.severe("Error: " + e.getMessage());
+            logger.error("Error: " + e.getMessage());
         }
     }
 
@@ -142,7 +148,7 @@ public class LinksPageGenerator {
         links.sort(Comparator
                 .comparingInt(String::length)
                 .thenComparing(Comparator.naturalOrder()));
-        logger.info("Data preprocessed.");
+        logger.info("Links data preprocessed.");
         return links;
     }
 }
