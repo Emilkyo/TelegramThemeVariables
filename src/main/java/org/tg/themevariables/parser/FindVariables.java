@@ -1,6 +1,9 @@
 package org.tg.themevariables.parser;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tg.themevariables.Constants;
+import org.tg.themevariables.LocalConstants;
 import org.tg.themevariables.util.FileDownloader;
 
 import java.io.*;
@@ -14,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FindVariables {
+    private static final Logger logger = LoggerFactory.getLogger(FindVariables.class);
 
     private static List<String> readInFile(String fileName, String methodName) {
         List<String> methodData = new ArrayList<>();
@@ -38,7 +42,7 @@ public class FindVariables {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return methodData;
     }
@@ -61,11 +65,11 @@ public class FindVariables {
             for (String item : list) {
                 writer.write(item + System.lineSeparator());
             }
+            logger.info("Variables successfully written to " + fileName);
             System.out.println("Variables successfully written to " + fileName);
         } catch (IOException e) {
             e.printStackTrace(); // I/O Error Handling
         }
-        System.out.println(); // Empty line for better readability
     }
 
     private static String updated() {
@@ -73,7 +77,7 @@ public class FindVariables {
             Check the channel message and determine which application
             then return the application name
         */
-        return "android";
+        return "nekogram";
     }
 
     public static void main(String[] args) {
