@@ -166,6 +166,8 @@ actionBarActionModeDefault
 actionBarActionModeDefaultTop
 actionBarActionModeDefaultIcon
 actionBarActionModeDefaultSelector
+actionBarActionModeReaction
+actionBarActionModeReactionDot
 actionBarDefaultTitle
 actionBarDefaultSubtitle
 actionBarDefaultSearch
